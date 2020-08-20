@@ -1,0 +1,284 @@
+User Guide for BOTTEMA in Maple
+                            
+ 
+How to Install and Run BOTTEMA?
+ 
+The BOTTEST is developed with the computer algebra system Maple, so without Maple you 
+cannot use this program. Just place BOTTEMA under some subdirectory, say, X:\YY\ZZZ.
+Then, in a Maple session, you can run this program, first, by reading BOTTEMA that is, type in
+ 
+> read `X:/YY/ZZZ/BOTTEMA`;
+ 
+ 
+be carefully the symbol ` ` cannot be omitted,  
+and then you can use all the functions provided by BOTTEMA.
+ 
+Dictionary for Geometric Invariants of a Triangle (Extendable)
+For the geometric inequality on triangle, you must use the geometric invariant as follows as 
+input.
+a, b, c,            lengths of sides of the triangle
+s,                  s=(a+b+c)/2, half the perimeter
+x, y, z,            x=s-a, y=s-b, z=s-c
+R,                  circumradius
+r,                  radius of the incircle
+ra, rb, rc,         radii of excircles, respectively
+ha, hb, hc,         altitudes respectively
+ma, mb, mc,         lengths of medians, respectively
+wa, wb, wc,         bisectors of angles, respectively         
+S,                  Area of the triangle
+p,                  p=4*r*(R-2*r)
+q,                  q=s^2-16*R*r+5*r^2
+A, B, C,            angles of the triangle, respectively
+sin(A)...           sines of the angles, respectively
+                    other trigonometric functions denoted analogously
+abs( ),             absolute value (used in Maple)
+aa,                 an acute triangle
+ 
+ 
+Warning.
+These geometric invariants are protected in BOTTEMA, you should not redefine or assign them.
+ 
+ 
+Commands and Examples on Inequality-type Theorem Proving.
+ 
+prove
+   Objective - prove a geometric inequality on a triangle or an equivalent algebraic inequality.
+   Calling Sequence:
+      prove(ineq);
+      prove(ineq,[ineqs]); 
+   Parameters:
+      ineq  - an inequality to be proven, which is encoded in the geometric invariants listed 
+              above.
+      ineqs - a list of inequalities as the hypothesis, which is encoded as well in the geometric
+              invariants listed above.
+   Remark:
+      - The command, prove, is valid to a geometric inequality on a triangle that must be of type
+        <= or >=, with a set of inequalities, ineqs, as the hypothesis which defines either an open
+        set with the whole/partial boundary; ineq and ineqs must be represented by the rational 
+        functions and radicals in the geometric invariants listed above.
+      - The command, prove, is also valid to a statement whose hypothesis and thesis, ineqs and 
+        ineq, all are homogeneous algebraic inequalities represented by the rational functions and 
+        radicals in x, y, z provided x>0, y>0, z>0, and of the required types as above. This is 
+        equivalent to a geometric one.
+   Examples:
+      > prove( a^2+b^2+c^2 >= 4*sqrt(3)*S+(b-c)^2+(c-a)^2+(a-b)^2 );
+      > prove( A >= B,[ a >= b ] );
+xprove
+   Objective - prove an algebraic inequality with positive variables.
+   Calling Sequence:
+      xprove(ineq);
+      xprove(ineq,[ineqs]);
+   Parameters:
+      ineq  - an algebraic inequality to be proven, with positive variables.
+      ineqs - a list of algebraic inequalities as the hypothesis, with positive variables.
+   Remark:
+      - The command, xprove, is valid to an algebraic inequality, ineq, which must be of type
+        <= or >=, with a set of inequalities, ineqs, as the hypothesis which defines either an
+        open set or an open set with the whole/partial boundary.
+      - All the hypothesis and thesis must be represented by the rational functions and radicals.
+      - All the variables appear in ineq and ineqs are supposed always positive that conditions
+        need not be explicitly included.
+   Examples:
+      > xprove( sqrt(u^2+v^2)+sqrt((1-u)^2+(1-v)^2) >= sqrt(2),[ u <= 1,v <= 1 ] );
+      > xprove( (x+1)^(1/3)+sqrt(y-1)+x*y+1/x+1/y^2 >= 42496/10000,[ y > 1 ] );
+      > xprove( (x+1)^(1/3)+sqrt(y-1)+x*y+1/x+1/y^2 >= 42497/10000,[ y > 1 ] );
+yprove
+   Objective - prove an algebraic inequality in general.
+   Calling Sequence:
+      yprove(ineq);
+      yprove(ineq,[ineqs]);
+   Parameters:
+      ineq  - an algebraic inequality to be proven.
+      ineqs - a list of algebraic inequalities as the hypothesis.
+   Remark:
+      - The command, yprove, is valid to an algebraic inequality, ineq, which must be of type
+        <= or >=, with a set of inequalities, ineqs, as the hypothesis which defines either an 
+        open set or an open set with the whole/partial boundary.
+      - All the hypothesis and thesis must be represented by the rational functions and radicals.
+   Examples:
+      > f:=x^6*y^6+6*x^6*y^5-6*x^5*y^6+15*x^6*y^4-36*x^5*y^5+15*x^4*y^6
+           +20*x^6*y^3-90*x^5*y^4+90*x^4*y^5-20*x^3*y^6+15*x^6*y^2
+           -120*x^5*y^3+225*x^4*y^4-120*x^3*y^5+15*x^2*y^6+6*x^6*y
+           -90*x^5*y^2+300*x^4*y^3-300*x^3*y^4+90*x^2*y^5-6*x*y^6+x^6
+           -36*x^5*y+225*x^4*y^2-400*x^3*y^3+225*x^2*y^4-36*x*y^5+y^6
+           -6*x^5+90*x^4*y-300*x^3*y^2+300*x^2*y^3-90*x*y^4+6*y^5+15*x^4
+           -120*x^3*y+225*x^2*y^2-120*x*y^3+15*y^4-20*x^3+90*x^2*y
+           -90*x*y^2+20*y^3+16*x^2-36*x*y+16*y^2-6*x+6*y+1:
+      > yprove(f>=0);
+ 
+ 
+Remark on the inequality-type theorems belonging to the so-called CGR class.
+It is not necessary to use CGR for inequality proving, but that makes the proving rapidly for a theorem
+belonging to the so-called CGR class.
+If you don¡¯t know anything about the CGR class, please refer to the last references in the
+references part. In this program, we have a global variable CGR, whose default value is zero.
+It means that the inequality-type theorem to be handled does not necessarily belong to CGR class. 
+If it is sure that the theorem definitely belongs to CGR class, we can assign 1 to variable CGR,
+That is, type in
+ 
+>CGR:=1; 
+ 
+and then, afterwards in this Maple session, the program will regard every inequality to be proven 
+as one belonging to CGR class, unless the user assigns 0 to variable CGR, that is, type in
+ 
+>CGR:=0;
+ 
+ 
+Commands and Examples on Global Optimization.
+cmin
+   Objective - find the best possible minimal constant, var, such that the inequality 
+               system holds.
+   Calling Sequence:
+      cmin(ineq,[ineqs],var);
+   Parameters:
+      ineq  - an inequality to be proven, which is encoded in the geometric invariants listed 
+              above and contains the variable, var.
+      ineqs - a list of inequalities as the hypothesis, which is encoded as well in the geometric
+              invariants listed above and doesn't contain the variable, var.
+   Remark:
+      - The command, cmin, is valid to a geometric inequality on a triangle that must be of type
+        <= or >=, with a set of inequalities, ineqs, as the hypothesis which defines either an open
+        set with the whole/partial boundary; ineq and ineqs must be represented by the rational 
+        functions and radicals in the geometric invariants listed above.
+      - The command, cmin, is also valid to a statement whose hypothesis and thesis, ineqs and 
+        ineq, all are homogeneous algebraic inequalities represented by the rational functions 
+        and radicals in x, y, z provided x>0, y>0, z>0, and of the required types as above. This 
+        is equivalent to a geometric one.
+   Examples:
+      > cmin( wa^2+wb^2+wc^2 <= 4*R^2+11*r^2+k*r*(R-2*r),[],k );
+ccmin
+   This command has the same function and usage as that of cmin, but it assumes the best possible 
+   minimal constant will be got at the isosceles triangle case.
+   Examples:
+      > ccmin( wa^2+wb^2+wc^2 <= 4*R^2+11*r^2+k*r*(R-2*r),[],k );
+findmin
+   Objective - find the best possible minimal constant, var, such that the inequality system holds.
+   Calling Sequence:
+      findmin(var,ineq,[ineqs]);
+   Parameters:
+      ineq  - an inequality to be proven, which is encoded in the geometric invariants listed above
+              and contains the variable, var.
+      ineqs - a list of inequalities as the hypothesis, which is encoded as well in the geometric
+              invariants listed above and doesn't contain the variable, var.
+   Remark:
+      - The command, findmin, is valid to a geometric inequality on a triangle that must be of type
+        <= or >=, with a set of inequalities, ineqs, as the hypothesis which defines either an open
+        set with the whole/partial boundary; ineq and ineqs must be represented by the rational 
+        functions and radicals in the geometric invariants listed above.
+      - The command, findmin, is also valid to a statement whose hypothesis and thesis, ineqs and ineq,
+        all are homogeneous algebraic inequalities represented by the rational functions and radicals
+        in x, y, z provided x>0, y>0, z>0, and of the required types as above. This is equivalent to
+        a geometric one.
+      - The command, findmin, has the same function as that of cmin and ccmin except that it will decide
+        if cmin or ccmin can be used automatically.
+   Examples:
+      > findmin( k,wa^2+wb^2+wc^2 <= 4*R^2+11*r^2+k*r*(R-2*r),[] );
+fmin
+   Objective - find the best possible minimal constant, var, such that the inequality system holds.
+               But this time we get an approximation value, not an accurate value.
+   Calling Sequence:
+      fmin(ineq,start,end,dig,var,[ineqs]);
+   Parameters:
+      ineq  - an inequality to be proven, which is encoded in the geometric invariants listed above
+              and contains the variable, var.
+      ineqs - a list of inequalities as the hypothesis, which is encoded as well in the geometric
+              invariants listed above and doesn't contain the variable, var.
+      start - assume var>start.
+      end   - assume var<= or >=, with a set of inequalities, ineqs, as the hypothesis which defines either an open
+        set with the whole/partial boundary; ineq and ineqs must be represented by the rational 
+        functions and radicals in the geometric invariants listed above.
+      - The command, fmin, is also valid to a statement whose hypothesis and thesis, ineqs and ineq,
+        all are homogeneous algebraic inequalities represented by the rational functions and radicals
+        in x, y, z provided x>0, y>0, z>0, and of the required types as above. This is equivalent to
+        a geometric one.
+      - The command, fmin, saves the result, u and v, into a file named result. We get var belongs to
+        the interval [u,v].
+   Examples:
+      > fmin( wa^2+wb^2+wc^2 <= 4*R^2+11*r^2+k*r*(R-2*r),-10,10,5,k,[] );
+      > read result;
+xmin
+   Objective - find the best possible minimal constant, var, such that the inequality system holds.
+   Calling Sequence:
+      xmin(ineq,[ineqs],var);
+   Parameters:
+      ineq  - an algebraic inequality to be proven, with positive variables and variable, var.
+      ineqs - a list of algebraic inequalities as the hypothesis, with positive variables and without
+              variable, var.
+   Remark:
+      - The command, xmin, is valid to an algebraic inequality, ineq, which must be of type
+        <= or >=, with a set of inequalities, ineqs, as the hypothesis which defines either an
+        open set or an open set with the whole/partial boundary.
+      - All the hypothesis and thesis must be represented by the rational functions and radicals.
+      - All the variables appear in ineq and ineqs are supposed always positive that conditions
+        need not be explicitly included.
+   Examples:
+      > read bottema;  (or, say, > read `bottema.dat`;)
+      > ineq:=1/5*(x2^3+1)^(1/3)*x2^2*x3^2<=k;
+      > ineqs:=x2^3+1 <= 12167/1000,
+               x3 <= 32/10,
+               10-(x2^3+1)^(2/3)-x2^2-x3^2-2/5*x2*x3 >= 0,
+               sqrt(250-25*(x2^3+1)^(2/3)-25*x2^2-25*x3^2+10*x2*x3)
+               +sqrt(250-25*(x2^3+1)^(2/3)-25*x2^2-25*x3^2-10*x2*x3) <= 32;
+      > xmin(ineq,[ineqs],k);
+ 
+xfmin
+   Objective - find the best possible minimal constant, var, such that the inequality system holds.
+               But this time we get an approximation value, not an accurate value.
+   Calling Sequence:
+      xfmin(ineq,start,end,dig,var,[ineqs]);
+   Parameters:
+      ineq  - an algebraic inequality to be proven, with positive variables and variable, var.
+      ineqs - a list of algebraic inequalities as the hypothesis, with positive variables and without
+              variable, var.
+      start - assume var>start.
+      end   - assume var<= or >=, with a set of inequalities, ineqs, as the hypothesis which defines either an
+        open set or an open set with the whole/partial boundary.
+      - All the hypothesis and thesis must be represented by the rational functions and radicals.
+      - All the variables appear in ineq and ineqs are supposed always positive that conditions
+        need not be explicitly included.
+      - The command, xfmin, saves the result, u and v, into a file named result. We get var belongs to
+        the interval [u,v].
+   Examples:
+      > ineq:=1/5*(x2^3+1)^(1/3)*x2^2*x3^2<=k;
+      > ineqs:=x2^3+1 <= 12167/1000,
+               x3 <= 32/10,
+               10-(x2^3+1)^(2/3)-x2^2-x3^2-2/5*x2*x3 >= 0,
+               sqrt(250-25*(x2^3+1)^(2/3)-25*x2^2-25*x3^2+10*x2*x3)
+               +sqrt(250-25*(x2^3+1)^(2/3)-25*x2^2-25*x3^2-10*x2*x3) <= 32;
+      > xfmin(ineq,0,40,5,k,[ineqs]);
+      > read result;
+      
+As for the best possible maximal constant, we have commands, cmax, ccmax, findmax, fmax, xmax and
+xfmax. The usage of them is similar to that of cmin, ccmin, findmin, fmin,xmin and xfmin.
+ 
+Problems Reported to:
+If you found some bugs or some interesting inequality-type theorem, please feel free to let us know.
+You can send message to cdluyang@mail.sc.cninfo.net or xsh@ict.ac.cn.
+ 
+References
+   - Quantifier elimination for real closed fields by cylindrical algebraic decomposition, Collins, G. E.,
+     Lecture Notes in Computer Science, 33:134-183. Springer-Verlag, Berlin, 1975.
+ 
+   - Partial cylindrical algebraic decomposition for quantifier elimination, Collins, G. E. & Hong, H., 
+     J. Symbolic Computation, 12, 299-328 (1991).
+ 
+   - Mechanically proving geometry theorems using a combination of Wu's  method and Collins's method,
+     McPhee, N. F., Chou, S. C. & Gao, X. S., Proc. of CADE-12, LNCS 814, Springer-Verlag, pp. 401-415, 1994.
+ 
+   - On a finiteness theorem about problem involving inequalities, Wu W.-t., Sys.~Sci.~ Math.~Scis.,(1994), 193-200.
+ 
+   - On Global-Optimization Problems, Wu W.-t., Proc.~of ASCM'98, Lanzhou University Press, Lanzhou, pp. 135-138, 1998.
+ 
+   - A Dimension-Decreasing Algorithm with Generic Program for Automated Inequality Proving, Yang, L., 
+     High Technology Letters (Chinese edition), 8:7(1998), 20-25.
+ 
+   - Practical automated reasoning on inequalities: Generic programs for inequality proving and discovering, Yang, L., 
+     Proc. of The Third Asian Technology Conference in Mathematics, Springer-Verlag, 1998, pp. 24-35.
+ 
+   - Recent advances in automated theorem proving on inequalities, Yang, L., J. Comput. Sci. Technol., 14:5(1999),434-446.
+ 
+   - A Practical program of automated proving for a class of geometric inequalities, Yang, Lu & Zhang, Ju, 
+     Automated Deduction in Geometry, Lecture Notes in Artificial Intelligence 2061, pp. 41-57, Springer Verlag, (2001).
+ 
+ 
+      
